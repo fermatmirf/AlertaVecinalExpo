@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
-import { Constants } from 'expo'
 
 class LogoTitle extends React.Component {
     render() {
@@ -12,9 +11,17 @@ class LogoTitle extends React.Component {
 
 class AlertaComponent extends React.Component {
     static navigationOptions = {
-        title: 'Home',
-      };
-    
+        title: 'ALERTAS!',
+        headerStyle: {
+            backgroundColor: 'mediumblue',
+          },
+          headerTitleStyle: {
+            fontWeight: '700',
+            color: 'white',
+
+          },
+    };
+
     render() {
         return (
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -47,24 +54,24 @@ const styles = StyleSheet.create({
     buttonAlerta: {
         alignItems: 'center',
         margin: 10,
-        backgroundColor: 'orange',
-        borderWidth:2,
-        borderColor:'black',
-        justifyContent:'center',
-        width:100,
-        height:100,
-        borderRadius:100,
+        backgroundColor: 'red',
+        borderWidth: 2,
+        borderColor: 'transparent',
+        justifyContent: 'center',
+        width: 125,
+        height: 125,
+        borderRadius: 100,
     },
     buttonSospechoso: {
         alignItems: 'center',
         margin: 10,
         backgroundColor: 'yellow',
-        borderWidth:2,
-        borderColor:'black',
-        justifyContent:'center',
-        width:100,
-        height:100,
-        borderRadius:100,
+        borderWidth: 2,
+        borderColor: 'transparent',
+        justifyContent: 'center',
+        width: 125,
+        height: 125,
+        borderRadius: 100,
     },
     countContainer: {
         alignItems: 'center',

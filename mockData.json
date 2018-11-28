@@ -1,0 +1,11 @@
+[
+    {
+        "id": "1","nombre": "Carlos", "apellido":"Tevez","grupos":[{"id": "1", "nombre":"Barrio Santa Ana", "domicilio":"Bolivia 331"}, {"id": "2", "nombre":"Barrio Santa Monica", "domicilio":"Domingo 331"},{"id": "3", "nombre":"Barrio San Andres", "domicilio":"Juan B Justo 331"}]
+    },
+    {
+        "id": "2","nombre": "Jose", "apellido":"Macri","grupos":[{"id": "2", "nombre":"Barrio Santa Ana", "domicilio":"Bolivia 331"}, {"id": "2", "nombre":"Barrio Santa Monica", "domicilio":"Domingo 331"},{"id": "3", "nombre":"Barrio San Andres", "domicilio":"Juan B Justo 331"}]        
+    },
+    {
+        "id": "3","nombre": "Juan", "apellido":"Torres","grupos":[{"id": "1", "nombre":"Barrio Santa Ana", "domicilio":"Bolivia 331"}, {"id": "2", "nombre":"Barrio Santa Monica", "domicilio":"Domingo 331"},{"id": "3", "nombre":"Barrio San Andres", "domicilio":"Juan B Justo 331"}]
+    }
+]
