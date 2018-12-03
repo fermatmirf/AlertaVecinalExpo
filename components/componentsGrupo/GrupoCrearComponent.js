@@ -1,17 +1,69 @@
 import React from 'react';
-import {View,Text} from 'react-native';
-import GrupoListComponent from './GrupoListComponent';
+import { StyleSheet, Text, View, Platform, TextInput } from 'react-native';
+import { Constants, Location, Permissions } from 'expo';
+import GrupoFormComponent from './GrupoFromComponent';
 
 class GrupoCrearComponent extends React.Component{
-    render(){
-        return(
-            <View>
-                <Text>La concha de tu madre allboys</Text>
-                <GrupoListComponent/>
-            </View>
-        )
-    }
 
-}
+    state = {
+      location: null,
+      errorMessage: null,
+    };
+  
+    componentWillMount() {
+      if (Platform.OS === 'android' && !Constants.isDevice) {
+        this.setState({
+          errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+        });
+      } else {
+        this._getLocationAsync();
+      }
+    }
+  
+    _getLocationAsync = async () => {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status !== 'granted') {
+        this.setState({
+          errorMessage: 'Permission to access location was denied',
+        });
+      }
+  
+      let location = await Location.getCurrentPositionAsync({});
+      this.setState({ location });
+    };
+    render() {
+      let text = 'Waiting..';
+      let latitude= 'Waiting..';
+      if (this.state.errorMessage) {
+        text = this.state.errorMessage;
+      } else if (this.state.location) {
+        text = JSON.stringify(this.state.location.coords.longitude);
+        latitude = JSON.stringify(this.state.location.coords.latitude)
+      }
+  
+      return (
+        <View style={styles.container}>
+          <GrupoFormComponent
+           texto = {text}
+          texto1 = {latitude} />
+        </View>
+      );
+    }
+  }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingTop: Constants.statusBarHeight,
+      backgroundColor: '#ecf0f1',
+    },
+    paragraph: {
+      margin: 24,
+      fontSize: 18,
+      textAlign: 'center',
+    },
+  });
 
 export default GrupoCrearComponent;

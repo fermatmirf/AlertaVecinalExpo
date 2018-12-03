@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Button, WhiteSpace } from 'antd-mobile-rn'
-
+import { WhiteSpace } from 'antd-mobile-rn';
+import {Button} from 'react-native-elements';
 class WelcomeComponent extends React.Component {
 
     render() {
@@ -15,10 +15,24 @@ class WelcomeComponent extends React.Component {
                 <WhiteSpace size="lg" />
                 <WhiteSpace size="lg" />
                 <WhiteSpace size="lg" />
-
-                <Button type="primary" size="large" onClick={() => { this.props.navigation.navigate('LoginScreen') }}>INGRESAR</Button>
-                <WhiteSpace size="lg" />
-                <Button type="primary" size="large" onClick={() => { this.props.navigation.navigate('SignUpScreen') }}>REGISTRARSE</Button>
+                   
+                <Button
+                    style={styles.botonLogin}
+                    backgroundColor= 'midnightblue'
+                    large
+                    icon={{ name: 'key', type: 'font-awesome' }}
+                    title='INGRESAR' 
+                    onPress= {() => { this.props.navigation.navigate('LoginScreen') }}
+                    />
+                <WhiteSpace size="lg" />    
+                <Button
+                    style={styles.botonLogin}
+                    backgroundColor= 'midnightblue'
+                    large
+                    icon={{ name: 'sign-in', type: 'font-awesome' }}
+                    title='REGISTRAR' 
+                    onPress={() => { this.props.navigation.navigate('SignUpScreen') }}
+                    />   
 
             </View>
         )
