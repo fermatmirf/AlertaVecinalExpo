@@ -43,6 +43,8 @@ export default class LoginComponent extends Component {
     const { username, password } = this.state;
     if(username ==="rashid@gmail.com" && password==='123456'){
     Alert.alert('¡Bienvenido! ', ` ${username}`);
+    this.props.navigation.navigate('Index')
+
   }
   else {
     Alert.alert('Usuario incorrecto');
@@ -80,7 +82,10 @@ export default class LoginComponent extends Component {
 
         <Image style={styles.icon} source={require("../../assets/fbg.png")}/>
 
-        <Text style={styles.textoRegistrate}>REGISTRATE</Text>
+        <Button
+            onPress= {() => { this.props.navigation.navigate('Index')}}
+            title = "Registrate"
+        ></Button>
 
       </View>
       

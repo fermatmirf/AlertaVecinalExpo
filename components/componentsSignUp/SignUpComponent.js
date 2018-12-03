@@ -132,14 +132,16 @@ const styles = StyleSheet.create({
  },
 
  inputs: {
-   height: 40,
-   width: 200,
-   borderColor : '#ccc',
-   borderWidth : 2,
-   marginBottom: 20,
+    marginTop: 5,
+    width: 300,
+    height: 40,
+    padding: 5,
+    borderRadius: 8,
+    backgroundColor: '#d7eb5a',
  },
 
  button: {
+   marginTop:20,
    backgroundColor: 'skyblue',
    paddingTop: 15,
    paddingBottom: 15
