@@ -95,10 +95,11 @@ export default class GrupoFormComponent extends React.Component {
             fontSize: 22
         },
         input:{
-            height: 40,
-            width: 200,
-            borderColor: '#ccc',
-            borderWidth: 2,
-            marginBottom: 20
+            marginTop: 20,
+            width: 300,
+            height: 44,
+            padding: 10,
+            borderRadius: 8,
+            backgroundColor: '#d7eb5a',
         },
     })

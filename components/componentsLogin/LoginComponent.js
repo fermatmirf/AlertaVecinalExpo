@@ -27,7 +27,7 @@
 // }
 // export default LoginComponent;
 import React, { Component } from 'react';
-import { Alert, Button, Text, TextInput, View, StyleSheet, Image, ImageBackground } from 'react-native';
+import { Alert, Button, Text, TextInput, View, StyleSheet, Image, ImageBackground, TouchableHighlight } from 'react-native';
 
 export default class LoginComponent extends Component {
   constructor(props) {
@@ -82,11 +82,11 @@ export default class LoginComponent extends Component {
 
         <Image style={styles.icon} source={require("../../assets/fbg.png")}/>
 
-        <Button
-            onPress= {() => { this.props.navigation.navigate('Index')}}
-            title = "Registrate"
-        ></Button>
-
+       <TouchableHighlight
+                        style={styles.button}
+                        onPress={() => { this.props.navigation.navigate('SignUpScreen')}}>
+                        <Text style={styles.textButton}>Registrate</Text>
+       </TouchableHighlight>
       </View>
       
       //</ImageBackground>
@@ -142,5 +142,9 @@ const styles = StyleSheet.create({
     width: 160,
     height: 75,
  },
+ button: {
+    backgroundColor: 'skyblue',
+    
+}
 
 });

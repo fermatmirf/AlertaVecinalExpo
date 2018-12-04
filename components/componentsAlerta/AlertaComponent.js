@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, TouchableOpacity,Alert, StyleSheet } from 'react-native';
 
 class LogoTitle extends React.Component {
     render() {
@@ -21,13 +21,16 @@ class AlertaComponent extends React.Component {
 
           },
     };
-
+    alertaEnviada(){
+        Alert.alert('Alerta enviada!!');
+        console.log("Se ha enviado una alerta");
+    }
     render() {
         return (
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
                 <TouchableOpacity
                     style={styles.buttonAlerta}
-                    onPress={this.onPress}
+                    onPress={this.alertaEnviada.bind(this)}
 
                 >
                     <Text> ALERTA </Text>

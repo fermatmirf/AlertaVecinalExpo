@@ -11,6 +11,15 @@ class GrupoComponent extends React.Component {
             fontWeight: 'bold',
             color: 'white',
         },
+        tabBarOptions: {
+            activeTintColor: '#e91e63',
+            labelStyle: {
+              fontSize: 12,
+            },
+            style: {
+              backgroundColor: 'blue',
+            },
+          }
     };
     render() {
         return (
