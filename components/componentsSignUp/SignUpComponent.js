@@ -2,6 +2,8 @@ import React from 'react';
 import { AppRegistry, StyleSheet, Text, View, TextInput, TouchableHighlight, Alert, AsyncStorage } from 'react-native';
 import { List } from './ListComponent';
 
+const axios = require('axios');
+
 export default class SignUpComponent extends React.Component {
     constructor() {
         super()
@@ -10,9 +12,9 @@ export default class SignUpComponent extends React.Component {
             nombre: '',
             apellido: '',
             dni: '',
-            correoElectronico: '',
-            contrasenia: '',
-            confirmarContrasenia: '',
+            correo: '',
+            password: '',
+            passwordconfirm: '',
             direccion: ''
         }
     }
@@ -25,14 +27,14 @@ export default class SignUpComponent extends React.Component {
     changeDni(dni) {
         this.setState({ dni })
     }
-    changeCorreoElectronico(correoElectronico) {
-        this.setState({ correoElectronico })
+    changeCorreo(correo) {
+        this.setState({ correo })
     }
-    changeContrasenia(contrasenia) {
-        this.setState({ contrasenia })
+    changeContrasenia(password) {
+        this.setState({ password })
     }
-    changeConfirmarContrasenia(confirmarContrasenia) {
-        this.setState({ confirmarContrasenia })
+    changeConfirmarContrasenia(passwordconfirm) {
+        this.setState({ passwordconfirm })
     }
     changeDireccion(direccion) {
         this.setState({ direccion })
@@ -43,39 +45,51 @@ export default class SignUpComponent extends React.Component {
             nombre: this.state.nombre,
             apellido: this.state.apellido,
             dni: this.state.dni,
-            correoElectronico: this.state.correoElectronico,
-            contrasenia: this.state.contrasenia,
-            confirmarContrasenia: this.state.confirmarContrasenia,
+            correo: this.state.correo,
+            password: this.state.password,
+            passwordconfirm: this.state.passwordconfirm,
             direccion: this.state.direccion
         }
-        if(data.nombre != null && data.apellido != null && data.dni != null && data.correoElectronico != null && data.contrasenia != null && data.confirmarContrasenia!= null && data.direccion != null ){
-            arrayData.push(data);
-        try {
-            AsyncStorage.getItem('database_vecinos').then((value) => {
-                if (value !== null) {
-                    const d = JSON.parse(value);
-                    d.push(data)
-                    AsyncStorage.setItem('database_vecinos', JSON.stringify(d)).then(() => {
-                        this.props.navigation.navigate('Index')
-                    })
-                } else {
-                    AsyncStorage.setItem('database_vecinos', JSON.stringify(arrayData)).then(() => {
-                        this.props.navigator.push({
-                            title: 'prueba',
-                            component: List
-                        })
-                    })
-                }
-            })
+        axios.post('http://192.168.43.66:1337/api/vecinos', { data })
+        .then(res => {
+          const state = JSON.parse(res.data.success);
+          
+          if(state === true){
+            Alert.alert('¡Bienvenido, se ha registrado! ', ` ${data.nombre+" "+data.apellido}`);
+            this.props.navigation.navigate('Index')
+          }
+          else{
+              Alert.alert('No pudo registrarse, revise los campos', `${res.data.message}`);
+          }
+        });
+        // if(data.nombre != null && data.apellido != null && data.dni != null && data.correoElectronico != null && data.contrasenia != null && data.confirmarContrasenia!= null && data.direccion != null ){
+        //     arrayData.push(data);
+        // try {
+        //     AsyncStorage.getItem('database_vecinos').then((value) => {
+        //         if (value !== null) {
+        //             const d = JSON.parse(value);
+        //             d.push(data)
+        //             AsyncStorage.setItem('database_vecinos', JSON.stringify(d)).then(() => {
+        //                 this.props.navigation.navigate('Index')
+        //             })
+        //         } else {
+        //             AsyncStorage.setItem('database_vecinos', JSON.stringify(arrayData)).then(() => {
+        //                 this.props.navigator.push({
+        //                     title: 'prueba',
+        //                     component: List
+        //                 })
+        //             })
+        //         }
+        //     })
             
-        } catch (err) {
-            console.log(err)
-        }
-        Alert.alert('Cuenta creada satisfactoriamente')
-        }
-        else {
-            Alert.alert('No dejar los campos vacios');
-        }
+        // } catch (err) {
+        //     console.log(err)
+        // }
+        // Alert.alert('Cuenta creada satisfactoriamente')
+        // }
+        // else {
+        //     Alert.alert('No dejar los campos vacios');
+        // }
         
     }
     render() {
@@ -99,19 +113,19 @@ export default class SignUpComponent extends React.Component {
                         onChangeText={(dni) => this.changeDni(dni)} />
                     <TextInput
                         placeholder="Correo Electrónico"
-                        value={this.state.correoElectronico}
+                        value={this.state.correo}
                         style={styles.inputs}
-                        onChangeText={(correoElectronico) => this.changeCorreoElectronico(correoElectronico)} />
+                        onChangeText={(correo) => this.changeCorreo(correo)} />
                     <TextInput
                         placeholder="Contraseña"
-                        value={this.state.contrasenia}
+                        value={this.state.password}
                         style={styles.inputs}
-                        onChangeText={(contrasenia) => this.changeContrasenia(contrasenia)} />
+                        onChangeText={(password) => this.changeContrasenia(password)} />
                     <TextInput
                         placeholder="Confirmar Contraseña"
-                        value={this.state.confirmarContrasenia}
+                        value={this.state.passwordconfirm}
                         style={styles.inputs}
-                        onChangeText={(confirmarContrasenia) => this.changeConfirmarContrasenia(confirmarContrasenia)} />
+                        onChangeText={(passwordconfirm) => this.changeConfirmarContrasenia(passwordconfirm)} />
                     <TextInput
                         placeholder="Dirección"
                         value={this.state.direccion}

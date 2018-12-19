@@ -1,29 +1,52 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity,Alert, StyleSheet } from 'react-native';
-
-class LogoTitle extends React.Component {
-    render() {
-        return (
-            <Icon type="check" size="md" color="red" />
-        );
-    }
-}
+import { View, Text, Button, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { List, ListItem } from 'react-native-elements'
+import SocketIOClient from 'socket.io-client';
+var alertasArray = [];
+var i = 0;
 
 class AlertaComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            socket: SocketIOClient('http://192.168.43.66:8080'),
+            alertas : alertasArray
+        }
+        i=1;
+        this.state.socket.on('alertas', function (alertas) {
+            if( i != 0 ){
+                Alert.alert('Se recibio un alerta');
+            }
+            alertasArray = alertas;
+            console.log(alertasArray);
+        })
+        
+    }
+
     static navigationOptions = {
         title: 'ALERTAS!',
         headerStyle: {
             backgroundColor: 'mediumblue',
-          },
-          headerTitleStyle: {
+        },
+        headerTitleStyle: {
             fontWeight: '700',
             color: 'white',
 
-          },
+        },
     };
-    alertaEnviada(){
+    alertaEnviada() {
+        const alerta = {
+            nombre: "Fer",
+            latitud: "-26.8188634",
+            longitud: "-65.19462"
+        }
+        this.state.socket.emit('new-alerta', alerta);
+        
         Alert.alert('Alerta enviada!!');
         console.log("Se ha enviado una alerta");
+    }
+    alertaRecibida() {
+       
     }
     render() {
         return (
@@ -42,6 +65,18 @@ class AlertaComponent extends React.Component {
                 >
                     <Text> SOSPECHOSO </Text>
                 </TouchableOpacity>
+
+                <List>
+                    {
+                        alertasArray.map((alerta) => (
+                            <ListItem
+                                key={alerta.nombre}
+                                title={alerta.nombre}
+                                subtitle = {alerta.latitud+' '+alerta.longitud}
+                            />
+                        ))
+                    }
+                </List>
             </View>
         )
     }

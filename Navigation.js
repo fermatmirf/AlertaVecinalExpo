@@ -43,6 +43,7 @@ const WelcomeStack = createStackNavigator({
          let iconName;
          if (routeName === 'Alerta') {
            iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+           draweI
          }
          if (routeName === 'Grupo') {
            iconName = `ios-options${focused ? '' : '-outline'}`;

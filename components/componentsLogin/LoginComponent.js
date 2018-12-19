@@ -29,39 +29,71 @@
 import React, { Component } from 'react';
 import { Alert, Button, Text, TextInput, View, StyleSheet, Image, ImageBackground, TouchableHighlight } from 'react-native';
 
+const axios = require('axios');
+
 export default class LoginComponent extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      username: '',
+      correo: '',
       password: '',
+      vecinos: []
     };
   }
-  
+  // getVecinos = () => {
+  //   return axios.get('http://192.168.100.2:1337/api/vecinos');
+  // }
   onLogin() {
-    const { username, password } = this.state;
-    if(username ==="rashid@gmail.com" && password==='123456'){
-    Alert.alert('¡Bienvenido! ', ` ${username}`);
-    this.props.navigation.navigate('Index')
-
-  }
-  else {
-    Alert.alert('Usuario incorrecto');
-  }
+    const data = {
+      correo: this.state.correo,
+      password: this.state.password
+    }
+    axios.post('http://192.168.43.66:1337/api/vecinosLogIn', { data })
+    .then(res => {
+      const state = JSON.parse(res.data.success);
+      console.log(res.data);
+      this.setState({
+        vecinos: res.data.data
+      })
+      
+      
+      if(state === true && res.data.data.length != 0){
+        this.props.navigation.navigate('Alerta',vecinos = this.state.vecinos);
+      }
+      else{
+          Alert.alert('No pudo registrarse, revise los campos', `${res.data.message}`);
+      }
+    });
+    // const { correo, password } = this.state;
+    // if(correo ==="rashid@gmail.com" && password==='123456'){
+    // Alert.alert('¡Bienvenido! ', ` ${correo}`);
+    // this.props.navigation.navigate('Index')
+    // }
+    // else {
+    //   Alert.alert('Usuario incorrecto');
+    // }
 }
-  onNada(){
+  componentDidMount(){
+    // this.getVecinos()
+    //   .then((Response) => {
+    //     console.log(Response.data.data)
 
+    //     this.setState({
+    //       posts: Response.data.data
+    //     });
+
+    //   })
+    //   .catch((err) => console.log(err));
   }
-
   render() {
     return (
       //<ImageBackground source={{uri:'https://images.unsplash.com/photo-1520987623799-101883d6585a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=eeaaaca9030b75d5fe8dedacbb3d00e0&auto=format&fit=crop&w=314&q=80'}}style={styles.container}>
       <View style={styles.container} >
       <Image style={styles.logo} source={require("../../assets/logo.png")}/>
         <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
+          value={this.state.correo}
+          onChangeText={(correo) => this.setState({ correo })}
           placeholder={'Correo electronico'}
           style={styles.input} 
         />
